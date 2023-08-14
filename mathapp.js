@@ -11,15 +11,15 @@ var randomArray
 if(link == 'facil'){
     var modo = 'f'
     link = link.replace('a', 'á')
-    var tabuada = [0, 10]
+    var tabuada = [0, 5]
 } else if(link == 'normal'){
     var modo = 'm'
-    var tabuada = [11, 20]
+    var tabuada = [6, 10]
 } else if(link == 'dificil'){
     var modo = 'd'
    link = 'difícil'
    console.log(link)
-    var tabuada = [21, 30]
+    var tabuada = [11, 20]
 }
 
 
@@ -30,11 +30,12 @@ avisoh1.innerText = `Você esta na dificuldade ${link} , logo a tabuada irá de 
 class tabuadaConstructor{
     constructor(){
         this.tabuadaarray = []
+        this.teste = []
     }
 
     construir(dificuldade){
         if(dificuldade == 'f'){
-            for(let i = 1; i <= 10; i++){
+            for(let i = 1; i <= 5; i++){
                 for(let a = 1; a <= 10; a++){
                     this.tabuadaarray.push([i,a])
                 }
@@ -44,10 +45,38 @@ class tabuadaConstructor{
 
     random(){
         const indiceAleatorio = Math.floor(Math.random() * this.tabuadaarray.length);
-        return this.tabuadaarray[indiceAleatorio];
+       
+        if(this.tabuadaarray.length == 1){
+            console.log('A')
+            return this.tabuadaarray[0]
+        } else {
+            
+            return this.tabuadaarray[indiceAleatorio]
+        }
+        
     }
 
-    retiratabuada(){
+    retiratabuada(numero){
+        var guardanumero = this.tabuadaarray
+        
+        var verif = false
+        
+        this.tabuadaarray = []
+
+        
+        for(var i = 0 ; i <= guardanumero.length - 1; i++){
+                
+            if(guardanumero[i][0] == numero[0] && guardanumero[i][1] == numero[1]){
+                verif = true    
+            } else if(verif == false){
+                this.tabuadaarray[i] = guardanumero[i]
+            } else {
+                this.tabuadaarray[i - 1] = guardanumero[i]
+            }
+        }
+
+       
+
     }
 
 }
@@ -58,9 +87,9 @@ var operacaobtn = document.querySelectorAll('.btn-operacao')
 
 var resposta = document.querySelectorAll('.resposta')
 
+
 operacaobtn.forEach((e) => {
     e.addEventListener('click', () => {
-        console.log(e.value)
         switch(e.value){
             case 'soma':  op = '+' 
             break
@@ -79,7 +108,6 @@ operacaobtn.forEach((e) => {
 
         }
 
-       
 
         tabuada.construir('f')
 
@@ -94,15 +122,38 @@ operacaobtn.forEach((e) => {
 
         pergunta.innerText = `${randomArray[0]} ${op} ${randomArray[1]}`
 
-        var numeroAleatorio = Math.floor(Math.random() * 2);
-
+        var numeroAleatorio = Math.floor(Math.random() * 3);
+        
+        
+        
         if(numeroAleatorio == 0){
             resposta[0].innerText = eval(`${randomArray[0]} ${op} ${randomArray[1]}`)
             resposta[1].innerText = eval(`(${randomArray[0]} + 1) ${op} ${randomArray[1]}`)
-        } else {
+            resposta[2].innerText = eval(`(${randomArray[0]} + 2) ${op} ${randomArray[1]}`)
+            resposta[3].innerText = eval(`(${randomArray[0]} - 1) ${op} ${randomArray[1]}`)
+        } 
+        
+        if(numeroAleatorio == 1){
             resposta[1].innerText = eval(`${randomArray[0]} ${op} ${randomArray[1]}`)
             resposta[0].innerText = eval(`(${randomArray[0]} + 1)${op} ${randomArray[1]}`)
+            resposta[2].innerText = eval(`(${randomArray[0]} + 2)${op} ${randomArray[1]}`)
+            resposta[3].innerText = eval(`(${randomArray[0]} - 1)${op} ${randomArray[1]}`)
         }
+
+        if(numeroAleatorio == 2){
+            resposta[2].innerText = eval(`${randomArray[0]} ${op} ${randomArray[1]}`)
+            resposta[1].innerText = eval(`(${randomArray[0]} + 1)${op} ${randomArray[1]}`)
+            resposta[3].innerText = eval(`(${randomArray[0]} + 2)${op} ${randomArray[1]}`)
+            resposta[0].innerText = eval(`(${randomArray[0]} - 1)${op} ${randomArray[1]}`)
+        }
+
+        if(numeroAleatorio == 3){
+            resposta[3].innerText = eval(`${randomArray[0]} ${op} ${randomArray[1]}`)
+            resposta[0].innerText = eval(`(${randomArray[0]} + 1)${op} ${randomArray[1]}`)
+            resposta[2].innerText = eval(`(${randomArray[0]} + 2)${op} ${randomArray[1]}`)
+            resposta[1].innerText = eval(`(${randomArray[0]} - 1)${op} ${randomArray[1]}`)
+        }
+
 
         })
 })
@@ -114,36 +165,72 @@ operacaobtn.forEach((e) => {
 resposta.forEach((e) =>{
     e.addEventListener('click', () => { 
 
-        var pergunta = document.getElementById('pergunta')
+        tabuada.retiratabuada([randomArray[0],randomArray[1]])
 
-        if(e.innerText == eval(`${randomArray[0]} ${op} ${randomArray[1]}`)){
-
-            var msgacerto = document.getElementById('acerto')
-            acerto++
-            msgacerto.innerText = `Acerto: ${acerto}`
+        if(tabuada.tabuadaarray.length == 0){
             
-        } else {
-            var msgerro = document.getElementById('erro')
-            erro++
-            msgerro.innerText = `Erro: ${erro}`
-        }
-       
-        randomArray = tabuada.random()
-        
-        resposta = document.querySelectorAll('.resposta')
-        
-        pergunta.innerText = `${randomArray[0]} ${op} ${randomArray[1]}`
-        
-        numeroAleatorio = Math.floor(Math.random() * 2)
+            var gameArea = document.querySelector('.game-area')
+            
+            gameArea.style.display = 'none'
 
-        if(numeroAleatorio == 0){
-            resposta[0].innerText = eval(`${randomArray[0]} ${op} ${randomArray[1]}`)
-            resposta[1].innerText = eval(`(${randomArray[0]} + 1) ${op} ${randomArray[1]}`)
-        } else {
-            resposta[1].innerText = eval(`${randomArray[0]} ${op} ${randomArray[1]}`)
-            resposta[0].innerText = eval(`(${randomArray[0]} + 1)${op} ${randomArray[1]}`)
-        }
+      
 
+        } else {
+         
+            
+            var pergunta = document.getElementById('pergunta')
+
+            if(e.innerText == eval(`${randomArray[0]} ${op} ${randomArray[1]}`)){
+
+                var msgacerto = document.getElementById('acerto')
+                acerto++
+                msgacerto.innerText = `Acerto: ${acerto}`
+                
+            } else {
+                var msgerro = document.getElementById('erro')
+                erro++
+                msgerro.innerText = `Erro: ${erro}`
+            }
+        
+            randomArray = tabuada.random()
+            
+            resposta = document.querySelectorAll('.resposta')
+            
+
+            pergunta.innerText = `${randomArray[0]} ${op} ${randomArray[1]}`
+
+            var numeroAleatorio = Math.floor(Math.random() * 3);
+            
+            
+            if(numeroAleatorio == 0){
+                resposta[0].innerText = eval(`${randomArray[0]} ${op} ${randomArray[1]}`)
+                resposta[1].innerText = eval(`(${randomArray[0]} + 1) ${op} ${randomArray[1]}`)
+                resposta[2].innerText = eval(`(${randomArray[0]} + 2) ${op} ${randomArray[1]}`)
+                resposta[3].innerText = eval(`(${randomArray[0]} - 1) ${op} ${randomArray[1]}`)
+            } 
+            
+            if(numeroAleatorio == 1){
+                resposta[1].innerText = eval(`${randomArray[0]} ${op} ${randomArray[1]}`)
+                resposta[0].innerText = eval(`(${randomArray[0]} + 1)${op} ${randomArray[1]}`)
+                resposta[2].innerText = eval(`(${randomArray[0]} + 2)${op} ${randomArray[1]}`)
+                resposta[3].innerText = eval(`(${randomArray[0]} - 1)${op} ${randomArray[1]}`)
+            }
+
+            if(numeroAleatorio == 2){
+                resposta[2].innerText = eval(`${randomArray[0]} ${op} ${randomArray[1]}`)
+                resposta[1].innerText = eval(`(${randomArray[0]} + 1)${op} ${randomArray[1]}`)
+                resposta[3].innerText = eval(`(${randomArray[0]} + 2)${op} ${randomArray[1]}`)
+                resposta[0].innerText = eval(`(${randomArray[0]} - 1)${op} ${randomArray[1]}`)
+            }
+
+            if(numeroAleatorio == 3){
+                resposta[3].innerText = eval(`${randomArray[0]} ${op} ${randomArray[1]}`)
+                resposta[0].innerText = eval(`(${randomArray[0]} + 1)${op} ${randomArray[1]}`)
+                resposta[2].innerText = eval(`(${randomArray[0]} + 2)${op} ${randomArray[1]}`)
+                resposta[1].innerText = eval(`(${randomArray[0]} - 1)${op} ${randomArray[1]}`)
+            }
+            
+            }
         
     })    
 })
