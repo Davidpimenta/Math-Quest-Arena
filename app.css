@@ -132,6 +132,33 @@ main{
     background-color:   #FF0000;
 }
 
+#acertos-final{
+    background-color: #00A859;
+}
+
+#erros-final{
+    background-color:   #FF0000;
+}
+
+.tela-final{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid var(--color3);
+    background-color: var(--color2);
+    border-radius: 20px;
+    padding: 30px 10px;
+    width: 80%;
+}
+
+.info-div-final{
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    margin-top: 20px;
+    justify-content: space-around;
+}
 
 #operacao{
     width: 100%;
