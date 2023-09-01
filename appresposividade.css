@@ -24,3 +24,106 @@
     }
    
 }  
+
+@media screen and (max-width: 700px) {
+    .img-final{
+        width: 80%;
+    }
+
+    #msgfinal{
+        font-size: 22px !important;
+    }
+
+    #acertof{
+        font-size: 19px !important;
+    }
+
+    #errof{
+        font-size: 19px !important;
+    }
+}
+
+
+
+@media screen and (min-width: 340px) and (min-height: 600px){
+    .img-final{
+        width: 20%;
+    }
+   
+}  
+
+
+@media screen and (orientation: landscape) and (min-width: 700px) and (max-width: 900px){
+    .img-final{
+        width: 100%!important;
+    }
+    
+
+   
+}  
+
+
+@media screen and (min-width: 800px) and (min-height: 600px){
+    .img-final{
+        width: 35%!important;
+    }
+    #divcustom > h1{
+        font-size: 40px!important;
+        
+    }
+
+    #divcustom > fieldset > legend > h3{
+        font-size: 35px!important;
+
+    }
+
+    #divcustom > fieldset > p{
+        font-size: 28px!important;
+    }
+
+    .startbtn{
+        width: 135px!important;
+       font-size: 28px!important;
+    }
+    
+
+   
+} 
+
+@media screen and (min-width: 700px) and (min-height: 900px){
+    .img-final{
+        width: 50%!important;
+    }
+
+    #divcustom > h1{
+        font-size: 40px!important;
+        
+    }
+
+    #divcustom > fieldset > legend > h3{
+        font-size: 35px!important;
+
+    }
+
+    #divcustom > fieldset > p{
+        font-size: 28px!important;
+    }
+
+    .startbtn{
+        width: 135px!important;
+       font-size: 28px!important;
+    }
+
+}  
+
+@media screen and (min-width: 1100px) {
+    .img-final{
+        width: 20% !important;
+    }
+
+    #divcustom > h1{
+        color: white;
+        font-size: 40px!important;
+    }
+   
+}  

@@ -13,6 +13,7 @@ class dificuldade{
     setdificuldade(){
         
         var tabuada
+
         if(this.linkCorrigido == 'facil'){
             this.modo = 'f'
             this.linkCorrigido = this.linkCorrigido.replace('a', 'á')
@@ -24,6 +25,12 @@ class dificuldade{
             this.modo = 'd'
             this.linkCorrigido = 'difícil'
             tabuada = [11, 15]
+        } else if(this.linkCorrigido == 'custom'){
+            var divcustom = document.getElementById('divcustom')
+            var divaviso = document.querySelector('.divaviso')
+            divaviso.style.display = 'none'
+            divcustom.style.display = 'flex'
+            tabuada = [0, 5]
         } else {
             this.modo = 'f'
             this.linkCorrigido = 'Fácil'
@@ -42,6 +49,7 @@ dificuldadeseter.setdificuldade()
 class tabuadaConstructor{
     constructor(){
         this.tabuadaGlobal = []
+        this.guardaqtd = 0
     }
 
     construirTabuada(dificuldade){
@@ -69,6 +77,44 @@ class tabuadaConstructor{
                 }
             }
         }
+
+        if(dificuldade == 'cm'){
+            var n1 = Number(document.getElementById('n1').value) 
+            var n2 = Number(document.getElementById('n2').value)
+            console.log(n1)
+            console.log(n2)
+            if(n1 > n2){
+                var n3 = n1
+                n1 = n2
+                n2 = n3
+            } else if(n1 == n2){
+                console.log(this.tabuadaGlobal + 'Teste')
+                 this.construirTabuada('cs')
+                return
+            } 
+
+
+            for(let i = n1; i <= n2; i++){
+                
+                for(let a = 1; a <= 10; a++){
+                    this.tabuadaGlobal.push([i,a])
+                }
+            }
+            console.log(this.tabuadaGlobal)
+
+        }
+
+        if(dificuldade == 'cs'){
+            var n3 = Number(document.getElementById('n3').value) 
+            for(let i = n3; i < n3 + 1; i++){
+                
+                for(let a = 1; a <= 10; a++){
+                    this.tabuadaGlobal.push([i,a])
+                }
+            }
+        }
+
+        this.guardaqtd = this.tabuadaGlobal.length
     }
 
     random(){
@@ -126,7 +172,12 @@ class jogoSet{
 
         this.randomArray  = tabuadaSeter.random()
 
-        pergunta.innerText = `${this.randomArray[0]} ${op} ${this.randomArray[1]}`
+        
+        try{
+            pergunta.innerText = `${this.randomArray[0]} ${op} ${this.randomArray[1]}`
+        } catch {
+           
+        }
     }
 
 }
@@ -182,6 +233,7 @@ class contadorResp{
             this.acertos++
             var msgacerto = document.getElementById('acerto')
             msgacerto.innerText = `Acerto: ${this.acertos}`
+            console.log(this.acertos)
         } else{
             this.erros++
             var msgerro = document.getElementById('erro')
@@ -217,10 +269,110 @@ class jogotermina{
         var erf = document.getElementById('errof')
         erf.innerText = `Erros: ${constadorSeter.erros}`
 
-        console.log(erf.innerText)
+        var msgfinal = document.getElementById('msgfinal')
+
+        this.classificacaoFinal(msgfinal, constadorSeter.acertos)
+
+
 
     }
-}
+
+    classificacaoFinal(msgfinal, acertos){
+
+        if(tabuadaSeter.guardaqtd >= 20 && tabuadaSeter.guardaqtd <= 50){
+                
+            if(acertos <= Math.floor(tabuadaSeter.guardaqtd / 2.45)){
+                var img_final = document.querySelector('.img-final')
+                img_final.src = 'images/burro.jpg'
+
+
+                msgfinal.innerText = `Você teve ${acertos} acertos?, BURRO!`
+            }
+
+            if(acertos >= Math.floor(tabuadaSeter.guardaqtd / 2) && acertos <= Math.floor(tabuadaSeter.guardaqtd / 1.5)){
+                var img_final = document.querySelector('.img-final')
+
+                img_final.src = 'images/alto.jpg'
+
+                msgfinal.innerText = `Você teve ${acertos} acertos, YOU ARE GENIUS?`
+            }
+
+            if(acertos > Math.floor(tabuadaSeter.guardaqtd / 1.2)){
+                var img_final = document.querySelector('.img-final')
+
+                img_final.src = 'images/mais-alto.webp'
+
+                msgfinal.innerText = `Você teve ${acertos} acertos, VOCÊ SABE`
+            }
+
+        }
+
+
+        if(tabuadaSeter.guardaqtd >= 10 && tabuadaSeter.guardaqtd < 20){
+            if(acertos < 5){
+                var img_final = document.querySelector('.img-final')
+                img_final.src = 'images/burro.jpg'
+
+
+                msgfinal.innerText = `Você teve ${acertos} acertos?, BURRO!`
+            }
+
+
+            if(acertos >= 5 && acertos <= 7){
+                var img_final = document.querySelector('.img-final')
+
+                img_final.src = 'images/alto.jpg'
+
+                msgfinal.innerText = `Você teve ${acertos} acertos, YOU ARE GENIUS?`
+            }
+
+            if(acertos > 7){
+                var img_final = document.querySelector('.img-final')
+
+                img_final.src = 'images/mais-alto.webp'
+
+                msgfinal.innerText = `Você teve ${acertos} acertos, VOCÊ SABE`
+            }
+        }
+
+        if(tabuadaSeter.guardaqtd > 50){
+            if(acertos <= Math.floor(tabuadaSeter.guardaqtd / 3)){
+                var img_final = document.querySelector('.img-final')
+                img_final.src = 'images/burro.jpg'
+    
+                msgfinal.innerText = `Você teve ${acertos} acertos?, BURRO!`
+            }
+    
+            if(acertos >=  Math.floor(tabuadaSeter.guardaqtd / 3) && acertos <=  Math.floor(tabuadaSeter.guardaqtd / 2)){
+                var img_final = document.querySelector('.img-final')
+    
+                img_final.src = 'images/media.png'
+    
+                msgfinal.innerText = `Você teve ${acertos} acertos, Não esta colando não né?`
+            }
+    
+            if(acertos >= Math.floor(tabuadaSeter.guardaqtd / 2) && acertos <= Math.floor(tabuadaSeter.guardaqtd / 1.5)){
+                var img_final = document.querySelector('.img-final')
+    
+                img_final.src = 'images/alto.jpg'
+    
+                msgfinal.innerText = `Você teve ${acertos} acertos, YOU ARE GENIUS?`
+            }
+    
+            if(acertos > Math.floor(tabuadaSeter.guardaqtd / 1.2)){
+                var img_final = document.querySelector('.img-final')
+    
+                img_final.src = 'images/mais-alto.webp'
+    
+                msgfinal.innerText = `Você teve ${acertos} acertos, VOCÊ SABE`
+            }
+    
+        }
+        }
+
+    
+    }
+
 
 
 var tabuadaSeter = new tabuadaConstructor()
@@ -272,23 +424,84 @@ resposta.forEach((e) => {
         tabuadaSeter.retiratabuada([jogoSeter.randomArray[0], jogoSeter.randomArray[1]])
 
         if(tabuadaSeter.tabuadaGlobal.length == 0){
-            var TerminaSeter = new jogotermina
-            TerminaSeter.termina()
-
-        } else {
-            
-
-            if(e.innerText == eval(`${jogoSeter.randomArray[0]} ${op} ${jogoSeter.randomArray[1]}`)){
+            if(e.innerText == eval(`${jogoSeter.randomArray[0]} ${op} ${jogoSeter.randomArray[1]}`)){     
                 constadorSeter.atualiza(0)
             } else {
                 constadorSeter.atualiza(1)
             }
+            console.log(tabuadaSeter.tabuadaGlobal.length)
+            var TerminaSeter = new jogotermina
+            TerminaSeter.termina()
+
+        } else {
+            if(e.innerText == eval(`${jogoSeter.randomArray[0]} ${op} ${jogoSeter.randomArray[1]}`)){
+                
+                constadorSeter.atualiza(0)
+            } else {
+                constadorSeter.atualiza(1)
+          
+            }
+
+            jogoSeter.perguntaset(op)
+
+            aleatorioBotaoSeter.botaorandom(op)
+
         }
 
-        jogoSeter.perguntaset(op)
-
-        aleatorioBotaoSeter.botaorandom(op)
+        
 
     })
 })
 
+
+//Custom
+
+var startbnt = document.querySelectorAll('.startbtn')
+startbnt.forEach((e, indice) => {
+    e.addEventListener('click', () => {
+        var n1 = document.getElementById('n1')
+        var n2 = document.getElementById('n2')
+        var n3 = document.getElementById('n3')
+
+        if(n1.value == '' || n2.value == ''){
+
+        } else {
+            if(indice == 0){
+                var divcustom = document.getElementById('divcustom')
+                var divaviso = document.querySelector('.divaviso')
+                divaviso.style.display = 'flex'
+                divcustom.style.display = 'none'
+    
+                var n1 = document.getElementById('n1')
+                var n2 = document.getElementById('n2')
+
+                if(n2.value > n1.value){
+                    var n3 = n1.value
+                    n1.value = n2.value
+                    n2.value = n3
+                    
+                }
+
+                dificuldadeseter.modo = 'cm'
+                var avisoh1 = document.querySelector('.h1aviso')
+                avisoh1.innerText = `Você esta na dificuldade ${dificuldadeseter.linkCorrigido} , logo a tabuada irá de ${n1.value} até ${n2.value}`
+                return
+            }
+
+            
+        }
+
+        if(indice == 1){
+            var divcustom = document.getElementById('divcustom')
+            var divaviso = document.querySelector('.divaviso')
+            divaviso.style.display = 'flex'
+            divcustom.style.display = 'none'
+
+            dificuldadeseter.modo = 'cs'
+            var avisoh1 = document.querySelector('.h1aviso')
+            avisoh1.innerText = `Você esta na dificuldade ${dificuldadeseter.linkCorrigido} , logo irá fazer a tabuada do ${n3.value}`
+            return
+        }
+        
+    })
+})
