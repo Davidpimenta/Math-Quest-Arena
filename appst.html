@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="matharena.css">
+    <link rel="stylesheet" href="appresposividade.css">
+    <link rel="stylesheet" href="matharenaResponsividade.css">
+    <link rel="stylesheet" href="st.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Oxygen+Mono&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/0dad49e0d6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="app.css">
+    
+    <title>MathQuestArena</title>
+</head>
+<body>
+    <header>
+        <h1 id="titulo">Math Quest Arena</h1>
+    </header>
+    
+    <section class="aviso">
+        <div class="divaviso">
+            <h1 class="h1aviso"></h1>
+            <button id="cmc" value="comecar">Começar</button>
+        </div>
+    </section>
+
+    <main>     
+        <section class="game-area">
+                <div class="top"><h1>Calcule:</h1></div>
+                <div class="bottom">
+                    <p id="pergunta">20 x 10</p>
+                    <div class="respostadiv">
+                        <button class="resposta" id="resposta1">30</button>
+                        <button class="resposta" id="resposta2">40</button>
+                        <button class="resposta" id="resposta3">30</button>
+                        <button class="resposta" id="resposta4">40</button>
+                    </div>
+                </div>
+           </section>
+
+           <section class="placar">
+                <div class="info" id="acertos">
+                    <p id="acerto">Acertos: </p>
+                </div>
+                <div class="info" id="erros">
+                    <p id="erro">Erros: </p>
+                </div>
+           </section>
+
+           <section class="tela-final">
+                
+                <img src="" alt="img" class="img-final">
+                <h1 id="msgfinal">Parabéns você fez:</h1>
+               
+                <div class="info-div-final">
+                    <div class="info" id="acertos-final">
+                        <p id="acertof"></p>
+                    </div>
+                    <div class="info" id="erros-final">
+                        <p id="errof"></p>
+                    </div>
+                </div>
+           
+            </section>
+    </main>
+
+    <script src="appstjs.js"></script>
+    
+   
+</body>
+</html>

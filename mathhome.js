@@ -17,5 +17,13 @@ btn_modo.forEach((e) => {
         if(e.value == 'custom'){
             window.location.href = 'app.html?custom'
         }
+
+        if(e.value == 'times'){
+            window.location.href = 'appst.html?times'
+        }
+        
+        if(e.value == 'speed'){
+            window.location.href = 'appst.html?speed'
+        }
     })
 })
